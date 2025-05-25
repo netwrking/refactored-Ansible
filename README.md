@@ -1,7 +1,7 @@
-# refactored-Ansible
+# Refactored-Ansible
 Welcome to my first Ansible labs with Eve-ng.
 
-# refactored-Ansible Overview
+# Refactored-Ansible Overview
 I will use this lab to write playbooks to perform basic configuration tasks on routers and switches
 
 # Ansible-Lab1
