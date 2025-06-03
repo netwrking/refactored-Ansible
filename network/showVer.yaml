@@ -11,6 +11,9 @@
       prompt: "Enter your SSH password"
       private: yes
 
+  vars:
+    ansible_network_os: cisco.ios.ios
+
   tasks:
     - name: Execute show version
       cisco.ios.ios_command:
