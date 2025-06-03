@@ -1,5 +1,5 @@
 - name: Run 'show version' on all routers
-  hosts: dcrouters
+  hosts: all
   connection: network_cli
   gather_facts: false
   vars_prompt:
