@@ -1,5 +1,6 @@
 - name: Run 'show version' on all routers
   hosts: dcrouters
+  connection: network_cli
   gather_facts: no
   vars_prompt:
     - name: ansible_user
