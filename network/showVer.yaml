@@ -9,7 +9,7 @@
 
     - name: ansible_ssh_pass
       prompt: "Enter your SSH password"
-      private: yes
+      private: true
 
   vars:
     ansible_network_os: cisco.ios.ios
