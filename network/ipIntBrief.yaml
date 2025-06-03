@@ -1,0 +1,26 @@
+- name: Run 'show ip interface brief' on all routers
+  hosts: dcrouters
+  connection: network_cli
+  gather_facts: false
+  vars_prompt:
+    - name: ansible_user
+      prompt: "Enter your SSH username"
+      private: false
+
+    - name: ansible_ssh_pass
+      prompt: "Enter your SSH password"
+      private: true
+
+  vars:
+    ansible_network_os: cisco.ios.ios
+
+  tasks:
+    - name: Execute show ip interface brief
+      cisco.ios.ios_command:
+        commands:
+          - show ip int brie
+      register: show_ip_brief_output
+
+    - name: Display output
+      debug:
+        var: show_ip_brief_output.stdout_lines
