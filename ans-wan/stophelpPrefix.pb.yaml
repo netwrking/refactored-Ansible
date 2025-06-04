@@ -1,0 +1,58 @@
+---
+
+- name: Prefix List Update
+  hosts: dcRouters
+  connection: local
+  gather_facts: False
+
+  vars_prompt:
+
+    - name: USERNAME
+      prompt: "Username"
+      private: false
+
+    - name: PASSWORD
+      prompt: "Password"
+
+  vars:
+    ansible_user: "{{ USERNAME }}"
+    ansible_password: "{{ PASSWORD }}"
+    ansible_become_password: "{{ PASSWORD }}"
+
+  vars_files:
+    - pyFunctions/fromStophelpPy.yaml
+
+  tasks:
+    - name: Create Prefix List Entries
+      script: createPrefix.py
+      changed_when: False
+      tags: TO, FROM
+      
+    - name: Update stophelp Prefix Lists on DC WAN Devices - From stophelp
+      cisco.ios.ios_prefix_lists:
+        config:
+        - afi: ipv4
+          prefix_lists:
+            - name: "STOPHELP_ROUTES_IN"
+              description: "DO NOT MODIFY - USING ANSIBLE ORCHESTRATION"
+              entries: "{{ fromPL }}"
+        state: replaced
+      tags: FROM
+
+    - name: Update stophelp Prefix Lists on DC WAN Devices - To stophelp
+      cisco.ios.ios_prefix_lists:
+        config:
+        - afi: ipv4
+          prefix_lists:
+            - name: "CNX_ROUTES_TO_STOPHELP"
+              description: "DO NOT MODIFY - USING ANSIBLE ORCHESTRATION"
+              entries: "{{ toPL }}"
+        state: replaced
+      tags: TO
+
+    - name: Soft Clear BGP Neighbors
+      cisco.ios.ios_command:
+        commands: 
+          - clear ip bgp * soft out
+          - clear ip bgp * soft in
+      tags: TO, FROM
