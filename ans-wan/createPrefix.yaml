@@ -12,6 +12,15 @@
       prompt: "Enter your SSH password"
       private: true
 
+    - name: ansible_become_pass
+      prompt: "Enter your enable (privilege) password"
+      private: true
+
+  vars:
+    ansible_network_os: cisco.ios.ios
+    ansible_become: yes
+    ansible_become_method: enable
+    
   vars:
     ansible_network_os: cisco.ios.ios
 
