@@ -19,9 +19,6 @@
     ansible_password: "{{ PASSWORD }}"
     ansible_become_password: "{{ PASSWORD }}"
 
-  vars_files:
-    - pyFunctions/fromStophelpPy.yaml
-
   tasks:
     - name: Create Prefix List Entries
       script: createPrefix.py
@@ -44,7 +41,7 @@
         config:
         - afi: ipv4
           prefix_lists:
-            - name: "CNX_ROUTES_TO_STOPHELP"
+            - name: "NXC_ROUTES_TO_STOPHELP"
               description: "DO NOT MODIFY - USING ANSIBLE ORCHESTRATION"
               entries: "{{ toPL }}"
         state: replaced
