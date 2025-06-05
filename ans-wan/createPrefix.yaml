@@ -5,15 +5,15 @@
 
   vars_prompt:
     - name: ansible_user
-      prompt: "Enter your SSH username"
+      prompt: "Username"
       private: false
 
     - name: ansible_ssh_pass
-      prompt: "Enter your SSH password"
+      prompt: "Password"
       private: true
 
     - name: ansible_become_pass
-      prompt: "Enter your enable (privilege) password"
+      prompt: "Enable Password"
       private: true
 
   vars:
