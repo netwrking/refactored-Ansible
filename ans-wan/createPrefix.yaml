@@ -1,0 +1,43 @@
+- name: create/update prefix-list enteries
+  hosts: dcrouters
+  connection: network_cli
+  gather_facts: false
+  vars_prompt:
+    - name: ansible_user
+      prompt: "Enter your SSH username"
+      private: false
+
+    - name: ansible_ssh_pass
+      prompt: "Enter your SSH password"
+      private: true
+
+  vars:
+    ansible_network_os: cisco.ios.ios
+
+  tasks:
+    - name: Update prefix-list enteries
+      cisco.ios.ios_prefix_lists:
+	    config:
+          - afi: ipv4
+		    prefix_lists:
+			  - name: NXC_ROUTES_TO_STOPHELP
+			    description: this is new merge test
+				enteries:
+				   - action: permit
+                     prefix: 10.10.10.0/24
+                     sequence: 25
+                  - action: permit
+                    prefix: 10.20.20.0/24
+                    sequence: 30
+					
+		  	prefix_lists:
+			  - name: STOPHELP_ROUTES_IN
+			    description: Update Inbound Routes from StopHelp
+				enteries:
+				   - action: permit
+                     prefix: 100.100.100.0/24
+                     sequence: 25
+                  - action: permit
+                    prefix: 110.110.110.0/24
+                    sequence: 30
+        state: merged
