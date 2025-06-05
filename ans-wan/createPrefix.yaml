@@ -21,10 +21,10 @@
         config:
           - afi: ipv4
             prefix_lists:
-	      - name: NXC_ROUTES_TO_STOPHELP
+              - name: NXC_ROUTES_TO_STOPHELP
 		description: this is new merge test
-		enteries:
-		  - action: permit
+                enteries:
+                  - action: permit
                     prefix: 10.10.10.0/24
                     sequence: 25
                   - action: permit
