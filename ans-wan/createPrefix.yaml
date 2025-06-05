@@ -11,7 +11,8 @@
     - name: ansible_ssh_pass
       prompt: "Enter your SSH password"
       private: true
-    
+  vars:
+    ansible_network_os: cisco.ios.ios
   tasks:
     - name: Update prefix-list enteries
       cisco.ios.ios_prefix_lists:
