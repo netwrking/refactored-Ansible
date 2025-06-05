@@ -21,9 +21,6 @@
     ansible_become: yes
     ansible_become_method: enable
     
-  vars:
-    ansible_network_os: cisco.ios.ios
-
   tasks:
     - name: Update prefix-list enteries
       cisco.ios.ios_prefix_lists:
