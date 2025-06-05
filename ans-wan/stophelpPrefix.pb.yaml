@@ -19,8 +19,8 @@
     ansible_password: "{{ PASSWORD }}"
     ansible_become_password: "{{ PASSWORD }}"
 
-  vars_files:
-    - pyFunctions/fromStophelpPy.yaml
+  #vars_files:
+    #- pyFunctions/fromStophelpPy.yaml
 
   tasks:
     - name: Create Prefix List Entries
