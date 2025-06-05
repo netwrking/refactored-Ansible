@@ -1,7 +1,7 @@
 ---
 
 - name: Prefix List Update
-  hosts: dcRouters
+  hosts: dcrouters
   connection: local
   gather_facts: False
 
