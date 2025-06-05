@@ -22,7 +22,7 @@
           - afi: ipv4
             prefix_lists:
 	      - name: NXC_ROUTES_TO_STOPHELP
-	        description: this is new merge test
+                description: Update utbound Routes to StopHelp
 	        enteries:
                   - action: permit
                     prefix: 10.10.10.0/24
