@@ -31,9 +31,9 @@
                 description: Update utbound Routes to StopHelp
                 entries:
                   - action: permit
-                    prefix: 10.20.20.0/24
-                    sequence: 30
-                  - action: permit
                     prefix: 10.30.30.0/24
-                    sequence: 35
+                    sequence: 40
+                  - action: permit
+                    prefix: 10.40.40.0/24
+                    sequence: 45
         state: merged
