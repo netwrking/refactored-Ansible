@@ -6,15 +6,15 @@
 
   vars_prompt:
     - name: ansible_user
-      prompt: "Enter your SSH username"
+      prompt: "Enter Username"
       private: false
 
     - name: ansible_ssh_pass
-      prompt: "Enter your SSH password"
+      prompt: "Enter Password"
       private: true
 
     - name: ansible_become_pass
-      prompt: "Enter your enable (privilege) password"
+      prompt: "Enter Enable Pword"
       private: true
 
   vars:
@@ -42,9 +42,11 @@
           - afi: ipv4
             prefix_lists:
               - name: STOPHELP_ROUTES_IN
+                state: replaced
                 description: "Imported from fromStophelp"
                 entries: "{{ stophelp_routes_in }}"
                 
               - name: STOPHELP_ROUTES_TO
+                state: replaced
                 description: "Imported from toStophelp"
                 entries: "{{ stophelp_routes_to }}"
