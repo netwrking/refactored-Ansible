@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+"""
+stophelpPrefix_yaml.py
+
+Reads stophelpPrefixlist.yaml (a YAML list under 'fromStophelp'), 
+assigns sequence numbers (5, 10, 15, ...),
+and writes out stophelp_routes_in.yml for Ansible.
 """
 
 import yaml
@@ -13,8 +20,11 @@ def main():
     with open(MASTER_FILE, "r") as f:
         data = yaml.safe_load(f)
 
-    # Extract the list under “master_subnets:”
-    subnets = data.get("master_subnets", [])
+    # Extract the list under “fromStophelp”
+    subnets = data.get("fromStophelp", [])
+    if not subnets:
+        print(f"Warning: '{MASTER_FILE}' has no key 'fromStophelp' or it's empty.")
+        return
 
     # Build entries with sequence increments of 5
     entries = []
@@ -22,7 +32,7 @@ def main():
     for net in subnets:
         seq += 5
         entries.append({
-            "action": "permit",     # or “deny” if you want
+            "action": "permit",     # change to "deny" if needed
             "prefix": net,
             "sequence": seq
         })
