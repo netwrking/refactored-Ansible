@@ -3,7 +3,7 @@
 stophelpPrefix_yaml.py
 
 Reads stophelpPrefixlist.yaml (a YAML list under 'fromStophelp'), 
-assigns sequence numbers (5, 10, 15, ...),
+assigns sequence numbers (3, 6, 9, ...),
 and writes out stophelp_routes_in.yml for Ansible.
 """
 
@@ -30,7 +30,7 @@ def main():
     entries = []
     seq = 0
     for net in subnets:
-        seq += 2
+        seq += 3
         entries.append({
             "action": "permit",     # change to "deny" if needed
             "prefix": net,
