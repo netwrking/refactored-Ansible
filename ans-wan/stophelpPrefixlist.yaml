@@ -9,6 +9,8 @@ fromStophelp:
   - 10.30.0.0/16
   - 10.40.40.0/24
   - 10.50.50.0/23
+  -100.100.100.0/24
+  - 50.50.50.0/23
 
   # …add as many prefixes as you like
   # Added line 5 @ top
