@@ -30,7 +30,7 @@ def main():
     entries = []
     seq = 0
     for net in subnets:
-        seq += 3
+        seq += 5
         entries.append({
             "action": "permit",     # change to "deny" if needed
             "prefix": net,
