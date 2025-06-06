@@ -1,0 +1,37 @@
+---
+- name: Push STOPHELP_ROUTES_IN prefix-list to IOS routers
+  hosts: dcrouters
+  connection: network_cli
+  gather_facts: false
+
+  vars_prompt:
+    - name: ansible_user
+      prompt: "Enter your SSH username"
+      private: false
+
+    - name: ansible_ssh_pass
+      prompt: "Enter your SSH password"
+      private: true
+
+    - name: ansible_become_pass
+      prompt: "Enter your enable (privilege) password"
+      private: true
+
+  vars:
+    ansible_network_os: cisco.ios.ios
+    ansible_become: yes
+    ansible_become_method: enable
+
+  # ─── Load the generated YAML that contains our “stophelp_routes_in:” list ───
+  vars_files:
+    - stophelp_routes_in.yml
+
+  tasks:
+    - name: Create/update STOPHELP_ROUTES_IN on IOS
+      cisco.ios.ios_prefix_lists:
+        config:
+          - afi: ipv4
+            prefix_lists:
+              - name: STOPHELP_ROUTES_IN
+                description: "Imported from stophelpPrefixlist.yaml"
+                entries: "{{ stophelp_routes_in }}"
