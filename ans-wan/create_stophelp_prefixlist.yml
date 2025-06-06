@@ -33,6 +33,12 @@
           - "You are about to push the following subnets into the STOPHELP_ROUTES_IN prefix-list:"
           - ""
           - "{{ stophelp_routes_in | map(attribute='prefix') | list }}"
+
+    - name: Print the subnets that will be added to STOPHELP_ROUTES_IN
+      debug:
+        msg:
+          - "You are about to push the following subnets into the STOPHELP_ROUTES_IN prefix-list:"
+          - ""
           - "{{ stophelp_routes_to | map(attribute='prefix') | list }}"
           
     - name: Please acknowledge to continue
