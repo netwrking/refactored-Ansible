@@ -27,6 +27,18 @@
     - stophelp_routes_in.yml
 
   tasks:
+    tasks:
+    - name: Print the subnets that will be added to STOPHELP_ROUTES_IN
+      debug:
+        msg:
+          - "You are about to push the following subnets into the STOPHELP_ROUTES_IN prefix-list:"
+          - ""
+          - "{{ stophelp_routes_in | map(attribute='prefix') | list }}"
+
+    - name: Please acknowledge to continue
+      ansible.builtin.pause:
+        prompt: "Press Enter to continue (Ctrl+C to abort)"
+        
     - name: Create/update STOPHELP_ROUTES_IN on IOS
       cisco.ios.ios_prefix_lists:
         config:
