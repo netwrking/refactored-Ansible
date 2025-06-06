@@ -27,7 +27,6 @@
     - stophelp_routes_in.yml
 
   tasks:
-    tasks:
     - name: Print the subnets that will be added to STOPHELP_ROUTES_IN
       debug:
         msg:
