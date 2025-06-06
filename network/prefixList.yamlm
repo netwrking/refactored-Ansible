@@ -1,0 +1,36 @@
+---
+- name: create/update prefix-list entries
+  hosts: dcrouters
+  connection: network_cli
+  gather_facts: false
+
+  vars_prompt:
+    - name: ansible_user
+      prompt: "Enter your SSH username"
+      private: false
+
+    - name: ansible_ssh_pass
+      prompt: "Enter your SSH password"
+      private: true
+
+    - name: ansible_become_pass
+      prompt: "Enter your enable (privilege) password"
+      private: true
+
+  vars:
+    ansible_network_os: cisco.ios.ios
+    ansible_become: yes
+    ansible_become_method: enable
+
+  tasks:
+    - name: Update prefix-list entries
+      cisco.ios.ios_prefix_lists:
+        config:
+          - afi: ipv4
+            prefix_lists:
+              - name: NXC_ROUTES_TO_STOPHELP
+                description: Update outbound Routes to StopHelp
+                entries:
+                  - action: permit
+                    prefix: 10.20.20.0/24
+                    sequence: 30
