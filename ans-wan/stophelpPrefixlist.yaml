@@ -14,6 +14,13 @@ fromStophelp:
   - 70.70.70.1/32
   - 70.70.70.2/32
 
+toStophelp:
+  - 10.13.13.0/24
+  - 10.14.14.0/24
+  - 10.15.15.0/23
+  - 10.16.16.0/24
+
+  
   # …add as many prefixes as you like
   # Added line 5 @ top
   # Added lines 13,14
