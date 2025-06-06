@@ -36,16 +36,22 @@
       ansible.builtin.pause:
         prompt: "Press Enter to continue (Ctrl+C to abort)"
 
-    - name: Create/update both STOPHELP prefix‐lists on IOS
+    - name: Update Stophelp Prefix-list on DC WAN - From Stophelp
       cisco.ios.ios_prefix_lists:
         config:
-          - afi: ipv4
-            prefix_lists:
-              - name: STOPHELP_ROUTES_IN
-                description: "Imported from fromStophelp"
-                entries: "{{ stophelp_routes_in }}"
-        
-              - name: STOPHELP_ROUTES_TO
-                description: "Imported from toStophelp"
-                entries: "{{ stophelp_routes_to }}"
+        - afi: ipv4
+          prefix_lists:
+            - name: "STOPHELP_ROUTES_IN"
+              description: "Imported from fromStophelp"
+              entries: "{{ stophelp_routes_in }}"
+        state: replaced
+
+    - name: Update Stophelp Prefix-list on DC WAN - To Stophelp
+      cisco.ios.ios_prefix_lists:
+        config:
+        - afi: ipv4
+          prefix_lists:
+            - name: STOPHELP_ROUTES_TO
+              description: "Imported from toStophelp"
+              entries: "{{ stophelp_routes_to }}"
         state: replaced
