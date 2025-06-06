@@ -1,4 +1,5 @@
-# master_stophelp_subnets.yaml
+# This is the "masterFile" stophelpPrefixlist.yaml
+# The top-level "KEY" is "fromStophelp" 
 ---
 fromStophelp:
   - 1.1.1.0/24
