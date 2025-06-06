@@ -41,12 +41,10 @@
         config:
           - afi: ipv4
             prefix_lists:
-              # ─── First prefix‐list: STOPHELP_ROUTES_IN ───
               - name: STOPHELP_ROUTES_IN
-                description: "Imported from ‘fromStophelp’"
+                description: "Imported from fromStophelp"
                 entries: "{{ stophelp_routes_in }}"
-
-              # ─── Second prefix‐list: STOPHELP_ROUTES_TO ───
+                
               - name: STOPHELP_ROUTES_TO
-                description: "Imported from ‘toStophelp’"
+                description: "Imported from toStophelp"
                 entries: "{{ stophelp_routes_to }}"
