@@ -44,7 +44,6 @@
               - name: STOPHELP_ROUTES_IN
                 description: "Imported from fromStophelp"
                 entries: "{{ stophelp_routes_in }}"
-        state: replaced   
         
               - name: STOPHELP_ROUTES_TO
                 description: "Imported from toStophelp"
