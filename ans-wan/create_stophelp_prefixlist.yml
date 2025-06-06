@@ -1,20 +1,20 @@
 ---
-- name: Push STOPHELP_ROUTES_IN prefix-list to IOS routers
+- name: Push both STOPHELP prefix‐lists to IOS routers
   hosts: dcrouters
   connection: network_cli
   gather_facts: false
 
   vars_prompt:
     - name: ansible_user
-      prompt: "Enter Username"
+      prompt: "Enter your SSH username"
       private: false
 
     - name: ansible_ssh_pass
-      prompt: "Enter Password"
+      prompt: "Enter your SSH password"
       private: true
 
     - name: ansible_become_pass
-      prompt: "Enter Enable Pword"
+      prompt: "Enter your enable (privilege) password"
       private: true
 
   vars:
@@ -22,34 +22,31 @@
     ansible_become: yes
     ansible_become_method: enable
 
-  # ─── Load the generated YAML that contains our “stophelp_routes_in:” list ───
   vars_files:
     - stophelp_routes_in.yml
 
   tasks:
-    - name: Print the subnets that will be added to STOPHELP_ROUTES_IN
+    - name: Preview “in” and “to” subnet lists
       debug:
         msg:
-          - "You are about to push the following subnets into the STOPHELP_ROUTES_IN prefix-list:"
-          - ""
-          - "{{ stophelp_routes_in | map(attribute='prefix') | list }}"
+          - "STOPHELP_ROUTES_IN → {{ stophelp_routes_in | map(attribute='prefix') | list }}"
+          - "STOPHELP_ROUTES_TO → {{ stophelp_routes_to | map(attribute='prefix') | list }}"
 
-    - name: Print the subnets that will be added to STOPHELP_ROUTES_IN
-      debug:
-        msg:
-          - "You are about to push the following subnets into the STOPHELP_ROUTES_IN prefix-list:"
-          - ""
-          - "{{ stophelp_routes_to | map(attribute='prefix') | list }}"
-          
-    - name: Please acknowledge to continue
+    - name: Pause for confirmation
       ansible.builtin.pause:
         prompt: "Press Enter to continue (Ctrl+C to abort)"
-        
-    - name: Create/update STOPHELP_ROUTES_IN on IOS
+
+    - name: Create/update both STOPHELP prefix‐lists on IOS
       cisco.ios.ios_prefix_lists:
         config:
           - afi: ipv4
             prefix_lists:
+              # ─── First prefix‐list: STOPHELP_ROUTES_IN ───
               - name: STOPHELP_ROUTES_IN
-                description: "Imported from stophelpPrefixlist.yaml"
+                description: "Imported from ‘fromStophelp’"
                 entries: "{{ stophelp_routes_in }}"
+
+              # ─── Second prefix‐list: STOPHELP_ROUTES_TO ───
+              - name: STOPHELP_ROUTES_TO
+                description: "Imported from ‘toStophelp’"
+                entries: "{{ stophelp_routes_to }}"
