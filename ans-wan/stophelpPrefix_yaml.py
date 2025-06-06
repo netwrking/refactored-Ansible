@@ -18,12 +18,6 @@ MASTER_FILE = "stophelpPrefixlist.yaml"
 OUTPUT_YAML = "stophelp_routes_in.yml"
 
 def build_entries(prefix_list, action="permit"):
-    """
-    Given a Python list of prefix‐strings (e.g. ["1.1.1.0/24", "1.2.2.0/24", …]),
-    return a list of dicts:
-      [ { "action": action, "prefix": "1.1.1.0/24", "sequence": 5 },
-        { "action": action, "prefix": "1.2.2.0/24", "sequence": 10 }, … ]
-    """
     entries = []
     seq = 0
     for net in prefix_list:
