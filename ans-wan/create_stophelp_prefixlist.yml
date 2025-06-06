@@ -42,11 +42,10 @@
           - afi: ipv4
             prefix_lists:
               - name: STOPHELP_ROUTES_IN
-                state: replaced
-                description: Imported from fromStophelp
+                description: "Imported from fromStophelp"
                 entries: "{{ stophelp_routes_in }}"
                 
               - name: STOPHELP_ROUTES_TO
-                state: replaced
-                description: Imported from toStophelp
+                description: "Imported from toStophelp"
                 entries: "{{ stophelp_routes_to }}"
+        state: replaced
