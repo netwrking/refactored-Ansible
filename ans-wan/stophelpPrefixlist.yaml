@@ -2,6 +2,7 @@
 # The top-level "KEY" is "fromStophelp" 
 ---
 fromStophelp:
+  - 100.100.100.0/24
   - 1.1.1.0/24
   - 1.2.2.0/24
   - 1.3.3.0/24
@@ -9,4 +10,8 @@ fromStophelp:
   - 2.5.0.0/16
   - 10.20.20.0/24
   - 10.30.0.0/16
+  - 10.40.40.0/24
+  - 10.50.50.0/23
   # …add as many prefixes as you like
+  # Added line 5 @ top
+  # Added lines 13,14
