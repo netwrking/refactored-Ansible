@@ -3,7 +3,7 @@
 stophelpPrefix_yaml.py
 
 Reads stophelpPrefixlist.yaml (a YAML list under 'fromStophelp'), 
-assigns sequence numbers (3, 6, 9, ...),
+assigns sequence numbers (5, 10, 15, ...),
 and writes out stophelp_routes_in.yml for Ansible.
 """
 
