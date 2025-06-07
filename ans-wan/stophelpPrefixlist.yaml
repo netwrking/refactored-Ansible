@@ -7,7 +7,7 @@ fromStophelp:
   - 5.5.5.5/32
   - 6.6.6.6/32
   - 1.2.2.0/24
-  - 5.5.5.5/32
+  - 8.8.8.7/32
   
 toStophelp:
   - 10.10.24.0/23
@@ -16,6 +16,7 @@ toStophelp:
   - 10.13.13.0/24
   - 10.15.15.0/24
   - 10.30.30.30/32
+  - 10.40.40.0/24
   
   # …add as many prefixes as you like
   # with this I can only append new prefix enteries
