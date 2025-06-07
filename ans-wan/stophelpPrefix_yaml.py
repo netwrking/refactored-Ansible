@@ -1,18 +1,8 @@
 #!/usr/bin/env python3
-"""
-stophelpPrefix_yaml.py
-
-Reads stophelpPrefixlist.yaml (which now has two keys: fromStophelp and toStophelp),
-assigns sequence numbers (5, 10, 15, ...) to each prefix in each list,
-and writes out stophelp_routes_in.yml with two top‐level keys:
-  - stophelp_routes_in: [ {action, prefix, sequence}, … ]
-  - stophelp_routes_to: [ {action, prefix, sequence}, … ]
-"""
 
 import yaml
 
 MASTER_FILE = "stophelpPrefixlist.yaml"
-
 OUTPUT_YAML = "stophelp_routes_in.yml"
 
 def build_entries(prefix_list, action="permit"):
@@ -34,14 +24,14 @@ def main():
 
     # --------------- build “in” entries ----------------
     from_list = data.get("fromStophelp", [])
-    if not from_list:
     in_entries = build_entries(from_list)
 
     # --------------- build “to” entries ----------------
     to_list = data.get("toStophelp", [])
-    if not to_list:
     to_entries = build_entries(to_list)
-  
+
+    # --------------- wrap under two top‐level keys ---------------
+    # So Ansible can load BOTH variables from the same file.
     out_data = {
         "stophelp_routes_in": in_entries,
         "stophelp_routes_to": to_entries
