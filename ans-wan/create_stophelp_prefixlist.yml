@@ -57,3 +57,10 @@
               entries: "{{ stophelp_routes_to }}"
         state: replaced
       tags: TO
+
+    - name: Clear BGP Neighbors Soft
+      cisco.ios.ios_command:
+        commands:
+          - clear ip bgp * soft out
+          - clear ip bgp * soft in
+      tags: TO, FROM
