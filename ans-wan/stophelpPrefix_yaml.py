@@ -11,10 +11,8 @@ and writes out stophelp_routes_in.yml with two top‐level keys:
 
 import yaml
 
-# 1) Path to your “stophelpPrefixlist.yaml” (the master file).
 MASTER_FILE = "stophelpPrefixlist.yaml"
 
-# 2) Path to the Ansible‐vars file we will (re)generate.
 OUTPUT_YAML = "stophelp_routes_in.yml"
 
 def build_entries(prefix_list, action="permit"):
@@ -37,19 +35,13 @@ def main():
     # --------------- build “in” entries ----------------
     from_list = data.get("fromStophelp", [])
     if not from_list:
-        print(f"Warning: '{MASTER_FILE}' has no key 'fromStophelp' or it's empty.")
-        # We continue anyway, generating an empty list for “in.”
     in_entries = build_entries(from_list)
 
     # --------------- build “to” entries ----------------
     to_list = data.get("toStophelp", [])
     if not to_list:
-        print(f"Warning: '{MASTER_FILE}' has no key 'toStophelp' or it's empty.")
-        # We continue anyway, generating an empty list for “to.”
     to_entries = build_entries(to_list)
-
-    # --------------- wrap under two top‐level keys ---------------
-    # So Ansible can load BOTH variables from the same file.
+  
     out_data = {
         "stophelp_routes_in": in_entries,
         "stophelp_routes_to": to_entries
