@@ -45,6 +45,7 @@
               description: "Imported from fromStophelp"
               entries: "{{ stophelp_routes_in }}"
         state: replaced
+      tags: FROM
 
     - name: Update Stophelp Prefix-list on DC WAN - To Stophelp
       cisco.ios.ios_prefix_lists:
@@ -55,3 +56,4 @@
               description: "Imported from toStophelp"
               entries: "{{ stophelp_routes_to }}"
         state: replaced
+      tags: TO
