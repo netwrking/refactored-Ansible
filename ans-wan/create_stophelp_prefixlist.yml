@@ -26,12 +26,46 @@
     - stophelp_routes_in.yml
 
   tasks:
-    - name: Get current 'in' prefix list
+
+    - name: Gather existing STOPHELP_ROUTES_IN prefix-list
+      cisco.ios.ios_command:
+        commands:
+          - show ip prefix-list STOPHELP_ROUTES_IN
+      register: raw_prefix_in
+
+    - name: Parse IN prefix-list output
+      set_fact:
+        existing_prefix_in_output: >-
+          {{
+            raw_prefix_in.stdout[0].splitlines()
+            | select("match", "^\\s*\\d+\\s+permit")
+            | map("regex_search", "permit\\s+(\\S+)", "\\1")
+            | map("regex_replace", "(.*)", '{"prefix": "\\1"}')
+            | map("from_yaml")
+            | list
+          }}
+
+    - name: Gather existing STOPHELP_ROUTES_TO prefix-list
+      cisco.ios.ios_command:
+        commands:
+          - show ip prefix-list STOPHELP_ROUTES_TO
+      register: raw_prefix_to
+
+    - name: Parse TO prefix-list output
+      set_fact:
+        existing_prefix_to_output: >-
+          {{
+            raw_prefix_to.stdout[0].splitlines()
+            | select("match", "^\\s*\\d+\\s+permit")
+            | map("regex_search", "permit\\s+(\\S+)", "\\1")
+            | map("regex_replace", "(.*)", '{"prefix": "\\1"}')
+            | map("from_yaml")
+            | list
+          }}
+
+    - name: Extract current 'in' and 'to' prefix values
       set_fact:
         existing_prefix_in: "{{ existing_prefix_in_output | map(attribute='prefix') | list }}"
-
-    - name: Get current 'to' prefix list
-      set_fact:
         existing_prefix_to: "{{ existing_prefix_to_output | map(attribute='prefix') | list }}"
 
     - name: Determine prefixes to add and remove (IN list)
