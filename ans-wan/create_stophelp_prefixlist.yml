@@ -26,11 +26,31 @@
     - stophelp_routes_in.yml
 
   tasks:
-    - name: Preview “in” and “to” subnet lists
+    - name: Get current 'in' prefix list
+      set_fact:
+        existing_prefix_in: "{{ existing_prefix_in_output | map(attribute='prefix') | list }}"
+
+    - name: Get current 'to' prefix list
+      set_fact:
+        existing_prefix_to: "{{ existing_prefix_to_output | map(attribute='prefix') | list }}"
+
+    - name: Determine prefixes to add and remove (IN list)
+      set_fact:
+        add_prefix_in: "{{ stophelp_routes_in | map(attribute='prefix') | difference(existing_prefix_in) | list }}"
+        remove_prefix_in: "{{ existing_prefix_in | difference(stophelp_routes_in | map(attribute='prefix') | list) }}"
+
+    - name: Determine prefixes to add and remove (TO list)
+      set_fact:
+        add_prefix_to: "{{ stophelp_routes_to | map(attribute='prefix') | difference(existing_prefix_to) | list }}"
+        remove_prefix_to: "{{ existing_prefix_to | difference(stophelp_routes_to | map(attribute='prefix') | list) }}"
+
+    - name: Preview prefix-list changes
       debug:
         msg:
-          - "STOPHELP_ROUTES_IN → {{ stophelp_routes_in | map(attribute='prefix') | list }}"
-          - "STOPHELP_ROUTES_TO → {{ stophelp_routes_to | map(attribute='prefix') | list }}"
+          - "IN - Prefixes to ADD → {{ add_prefix_in }}"
+          - "IN - Prefixes to REMOVE → {{ remove_prefix_in }}"
+          - "TO - Prefixes to ADD → {{ add_prefix_to }}"
+          - "TO - Prefixes to REMOVE → {{ remove_prefix_to }}"
 
     - name: Pause for confirmation
       ansible.builtin.pause:
